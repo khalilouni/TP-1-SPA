@@ -1,9 +1,10 @@
 const express = require('express');
 const path = require('path');
-const dotenv = require('dotenv').config()
 
+require('dotenv').config();
 
 const PORT = process.env.PORT || 4000;
+
 const app = express();
 const fs = require('fs');
 
@@ -19,7 +20,6 @@ var params = {
     count: '50',
     lang: 'en'
 }
-
 
 app.use("/static", express.static(path.resolve(__dirname, "frontend", "static")));
 
@@ -39,4 +39,10 @@ app.get('/*', function (req, res) {
     
 
 
-var server = app.listen(PORT);
+var server = app.listen(PORT, function () {
+    
+    var host = server.address().address
+    var port = server.address().port
+    console.log("Example app listening at http://%s:%s", host, port)
+
+ });
